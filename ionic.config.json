@@ -1,0 +1,7 @@
+{
+  "name": "convertidor-modena",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
