@@ -1,20 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="center-text">Convertidor de Moneda</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="convert()">
+        <ion-item>
+          <ion-label position="floating">Desde</ion-label>
+          <ion-select [(ngModel)]="fromCurrency" name="fromCurrency" interface="popover">
+            <ion-select-option *ngFor="let currency of currencies" [value]="currency.code">
+              {{ currency.code }} - {{ currency.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Hacia</ion-label>
+          <ion-select [(ngModel)]="toCurrency" name="toCurrency" interface="popover">
+            <ion-select-option *ngFor="let currency of currencies" [value]="currency.code">
+              {{ currency.code }} - {{ currency.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cantidad</ion-label>
+          <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input>
+        </ion-item>
+        <ion-button expand="full" type="submit">
+          Convertir <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card *ngIf="objetResult.result" color="light">
+    <ion-card-header>
+      <ion-card-title class="center-text">Resultado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2 class="result-text">
+        {{ amount }} {{ fromCurrency }} = {{ objetResult.result[toCurrency] }} {{ toCurrency }}
+      </h2>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
